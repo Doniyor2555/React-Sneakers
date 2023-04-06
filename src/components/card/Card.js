@@ -1,10 +1,19 @@
+import { useState } from 'react';
+
 import './card.scss';
 
-function Card(props) {
-  const {title, price, imageUrl} = props;
+function Card({title, price, imageUrl, onFavorite, onPlus}) {
+  
+  const [isAdded, setAdded] = useState(false);
+  
+  const onClickPlus = () => {
+    setAdded(!isAdded);
+    onPlus({title, price, imageUrl});
+  }
+
   return (
     <div className="card">
-      <div className="favorite">
+      <div className="favorite" onClick={onFavorite}>
         <img src="/img/heart.svg" alt="Unliked" />
       </div>
       <img src={imageUrl} style={{marginBottom: '14px'}} width={133} height={112} alt="sneakers" />
@@ -12,14 +21,20 @@ function Card(props) {
       <div className="d-flex justify-between align-center">
         <div className="d-flex flex-column">
           <span>Цена:</span>
-          <b>{price}</b>
+          <b>{price} руб.</b>
         </div>
-          <button className="button">
-            <img width={11} height={11}  src="/img/plus.svg" alt="plus.svg"  />
-          </button>
+              <button className='add' style={{border: 'none', background: 'none'}}>
+                <img 
+                style={{cursor: 'pointer'}} 
+                onClick={onClickPlus} 
+                src={isAdded ? "/img/btn-checked.svg" : "/img/btn-plus.svg"} 
+                alt="plus.svg"  />
+              </button>
+              
       </div>
     </div>
   )
 }
 
 export default Card
+
