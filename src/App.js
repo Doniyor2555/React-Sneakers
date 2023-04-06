@@ -21,9 +21,16 @@ function App() {
     setCartItems((prev) => [...prev, obj]);
   };
 
+  const deleteItemFromDrawer = (obj) => {
+    const items = document.querySelector(".items")
+    const cartItems = document.querySelector(".cartItem");
+
+    items.removeChild(cartItems);
+  }
+
   return (
     <div className="wrapper clear">
-      {isCartOpened && <Drawer items={cartItems} onClose={() => setCartOpened(false)}/>}
+      {isCartOpened && <Drawer items={cartItems} onClose={() => setCartOpened(false)} onDelete={(obj) => deleteItemFromDrawer(obj)}/>}
       <Header onCartOpened={() => setCartOpened(true)}/>
      
       <div className="content p-40">
@@ -32,7 +39,7 @@ function App() {
           <h1>Все кроссовки</h1>
           <div className='search-block d-flex'> 
             <img src="/img/search.svg" alt="Search" />
-            <input type="text" placeholder="Поиск..." />
+            <input type="text" placeholder="Поиск..."/>
           </div>
         </div>
 

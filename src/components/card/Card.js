@@ -11,6 +11,13 @@ function Card({title, price, imageUrl, onFavorite, onPlus}) {
     onPlus({title, price, imageUrl});
   }
 
+  const pointeEvents = {
+    pointerEvents: 'none'
+  }
+  const cursorPointer = {
+    cursor: 'pointer'
+  }
+  
   return (
     <div className="card">
       <div className="favorite" onClick={onFavorite}>
@@ -23,14 +30,14 @@ function Card({title, price, imageUrl, onFavorite, onPlus}) {
           <span>Цена:</span>
           <b>{price} руб.</b>
         </div>
-              <button className='add' style={{border: 'none', background: 'none'}}>
+              <button className='add' style={{border: 'none', background: 'none'}} >
                 <img 
-                style={{cursor: 'pointer'}} 
                 onClick={onClickPlus} 
                 src={isAdded ? "/img/btn-checked.svg" : "/img/btn-plus.svg"} 
-                alt="plus.svg"  />
+                className='cu-p'
+                style={isAdded ? pointeEvents : cursorPointer}
+                alt="plus.svg" />
               </button>
-              
       </div>
     </div>
   )
