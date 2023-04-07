@@ -5,6 +5,8 @@ import './card.scss';
 function Card({title, price, imageUrl, onFavorite, onPlus}) {
   
   const [isAdded, setAdded] = useState(false);
+  const [isFavorite, setFavorite] = useState(false);
+
   
   const onClickPlus = () => {
     setAdded(!isAdded);
@@ -17,11 +19,15 @@ function Card({title, price, imageUrl, onFavorite, onPlus}) {
   const cursorPointer = {
     cursor: 'pointer'
   }
+
+  const onClickFavorite = () => {
+    setFavorite(!isFavorite);
+  }
   
   return (
     <div className="card">
       <div className="favorite" onClick={onFavorite}>
-        <img src="/img/heart.svg" alt="Unliked" />
+        <img onClick={onClickFavorite} src={isFavorite ? "/img/liked.svg" : "/img/unliked.svg" } alt="Unliked" />
       </div>
       <img src={imageUrl} style={{marginBottom: '14px'}} width={133} height={112} alt="sneakers" />
       <h5>{title}</h5>
