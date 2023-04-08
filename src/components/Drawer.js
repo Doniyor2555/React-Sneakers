@@ -1,5 +1,4 @@
 function Drawer({ onClose, onRemoveItem, items = [] }) {
-  console.log(items)
   return (
     <div className="overlay">
       <div className="drawer">
@@ -9,16 +8,19 @@ function Drawer({ onClose, onRemoveItem, items = [] }) {
 
         {
           items.length > 0 ? <div className="items" >
+          <div>
+            
+          </div>
             {
-              items.map((item, i) => (
-                <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }} key={item.id}>
-                  <div className="cartItem d-flex align-center mb-20">
+              items.map((item) => (
+                <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }} >
+                  <div  key={item.id} className="cartItem d-flex align-center mb-20">
                     <div style={{ backgroundImage: `url(${item.imageUrl})` }} className="cartItemImg"></div>
                     <div className="mr-20 flex">
                       <p className="mb-5">{item.title}</p>
                       <b>{item.price} руб.</b>
                     </div>
-                    <img onClick={(e) => onRemoveItem(item.id, e)} className="removeBtn" src="/img/btn-remove.svg" alt="Remove" />
+                    <img onClick={() => onRemoveItem(item.id)} className="removeBtn" src="/img/btn-remove.svg" alt="Remove" />
                   </div>
                 </div>
 

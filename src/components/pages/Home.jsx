@@ -28,23 +28,19 @@ function Home({ items,
         </div>
       </div>
 
-      {console.log(cartItems)}
-
       <div className="d-flex flex-wrap">
         {items
           .filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()))
           .map((item, i) => {
             return (
               <Card
-                title={item.title}
-                price={item.price}
-                imageUrl={item.imageUrl}
                 onFavorite={(item) => onAddToFavorites(item)}
                 onPlus={(obj) => onAddToCart(obj)}
                 key={i}
                 increase={increase}
                 setIncrease={setIncrease}
                 added={cartItems.some((obj) => Number(obj.id) === Number(item.id))}
+                {...item}
               />
             )
           })}
