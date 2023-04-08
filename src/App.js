@@ -38,10 +38,10 @@ function App() {
     setFavorites((prev) => [...prev, obj]);
   };
 
-  const onRemoveItem = (id) => {
+  const onRemoveItem = (id, e) => {
+    e.preventDefault();
     axios.delete(`https://642c0e2c208dfe254726b4cb.mockapi.io/cart/${id}`);
-    console.log(id);
-    setCartItems((prev) => prev.filter(item => item.id !== id));
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
   }
 
   const removeItemFromFavorites = (id) => {
@@ -68,9 +68,12 @@ function App() {
           increase={increase}
           setIncrease={setIncrease}
         />} />
-        <Route path="/favorites" element={<Favorites favorites={favorites} removeItemFromFavorites={removeItemFromFavorites} increase={increase} setIncrease={setIncrease} />} />
+        <Route path="/favorites" element={<Favorites
+          favorites={favorites}
+          removeItemFromFavorites={removeItemFromFavorites}
+          increase={increase}
+          setIncrease={setIncrease} />} />
       </Routes>
-
 
     </div>
   );
