@@ -2,22 +2,15 @@ import { useState } from 'react';
 
 import './card.scss';
 
-function Card({ title, price, imageUrl, onFavorite, onPlus, increase, setIncrease }) {
+function Card({ id, title, price, imageUrl, onFavorite, onPlus, increase, setIncrease, favorited = false, added = false }) {
 
-  const [isAdded, setAdded] = useState(false);
-  const [isFavorite, setFavorite] = useState(false);
+  const [isAdded, setAdded] = useState(added);
+  const [isFavorite, setFavorite] = useState(favorited);
 
 
   const onClickPlus = () => {
     setAdded(!isAdded);
-    onPlus({ title, price, imageUrl });
-  }
-
-  const pointerEvents = {
-    pointerEvents: 'none'
-  }
-  const cursorPointer = {
-    cursor: 'pointer'
+    onPlus({ id, title, price, imageUrl });
   }
 
   const onClickFavorite = () => {
@@ -51,7 +44,6 @@ function Card({ title, price, imageUrl, onFavorite, onPlus, increase, setIncreas
             onClick={onClickPlus}
             src={isAdded ? "/img/btn-checked.svg" : "/img/btn-plus.svg"}
             className='cu-p'
-            style={isAdded ? pointerEvents : cursorPointer}
             alt="plus.svg" />
         </button>
       </div>

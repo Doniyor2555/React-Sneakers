@@ -6,7 +6,6 @@ import { Route, Routes } from 'react-router-dom';
 import axios from "axios";
 
 
-import Card from "./components/card/Card";
 import Header from "./components/Header";
 import Drawer from "./components/Drawer";
 import Home from "./components/pages/Home";
@@ -18,7 +17,7 @@ function App() {
   const [favorites, setFavorites] = useState([]);
   const [searchValue, setSearchValue] = useState('');
   const [isCartOpened, setCartOpened] = useState(false);
-  const [increase, setIncrease] = useState(0)
+  const [increase, setIncrease] = useState(0);
 
   useEffect(() => {
     axios.get('https://642c0e2c208dfe254726b4cb.mockapi.io/items').then((res) => {
@@ -30,8 +29,17 @@ function App() {
   }, []);
 
   const onAddToCart = (obj) => {
-    axios.post('https://642c0e2c208dfe254726b4cb.mockapi.io/cart', obj);
-    setCartItems((prev) => [...prev, obj]);
+    try {
+      if (cartItems.find(item => Number(item.id) === Number(obj.id))) {
+        axios.delete(`https://642c0e2c208dfe254726b4cb.mockapi.io/cart/${obj.id}`);
+        setCartItems(prev => prev.filter(item => Number(item.id) !== Number(obj.id)));
+      } else {
+        axios.post('https://642c0e2c208dfe254726b4cb.mockapi.io/cart', obj);
+        setCartItems((prev) => [...prev, obj]);
+      }
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   const onAddToFavorites = (obj) => {
@@ -67,6 +75,7 @@ function App() {
           onAddToFavorites={onAddToFavorites}
           increase={increase}
           setIncrease={setIncrease}
+          cartItems={cartItems}
         />} />
         <Route path="/favorites" element={<Favorites
           favorites={favorites}
@@ -74,7 +83,6 @@ function App() {
           increase={increase}
           setIncrease={setIncrease} />} />
       </Routes>
-
     </div>
   );
 }

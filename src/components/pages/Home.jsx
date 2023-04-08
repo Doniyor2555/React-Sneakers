@@ -8,7 +8,8 @@ function Home({ items,
   onAddToCart,
   searchValue,
   increase,
-  setIncrease
+  setIncrease,
+  cartItems
 }) {
 
   return (
@@ -27,6 +28,8 @@ function Home({ items,
         </div>
       </div>
 
+      {console.log(cartItems)}
+
       <div className="d-flex flex-wrap">
         {items
           .filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()))
@@ -41,6 +44,7 @@ function Home({ items,
                 key={i}
                 increase={increase}
                 setIncrease={setIncrease}
+                added={cartItems.some((obj) => Number(obj.id) === Number(item.id))}
               />
             )
           })}
