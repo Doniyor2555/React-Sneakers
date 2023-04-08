@@ -36,7 +36,6 @@ function App() {
 
   const onAddToFavorites = (obj) => {
     setFavorites((prev) => [...prev, obj]);
-    console.log(obj)
   };
 
   const onRemoveItem = (id) => {
