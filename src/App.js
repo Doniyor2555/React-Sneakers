@@ -45,9 +45,14 @@ function App() {
     setCartItems((prev) => prev.filter(item => item.id !== id));
   }
 
+  const removeItemFromFavorites = (id) => {
+    setFavorites((prev) => prev.filter((item, i) => i !== i));
+  };
+
   const onSearchInput = (e) => {
     setSearchValue(e.target.value);
   };
+
 
   return (
     <div className="wrapper clear">
@@ -64,7 +69,7 @@ function App() {
           increase={increase}
           setIncrease={setIncrease}
         />} />
-        <Route path="/favorites" element={<Favorites favorites={favorites}/>} />
+        <Route path="/favorites" element={<Favorites favorites={favorites} removeItemFromFavorites={removeItemFromFavorites} increase={increase} setIncrease={setIncrease} />} />
       </Routes>
 
 

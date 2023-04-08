@@ -1,7 +1,7 @@
 import Card from "../card/Card";
 
 
-function Home({items, 
+function Home({ items,
   setSearchValue,
   onSearchInput,
   onAddToFavorites,
