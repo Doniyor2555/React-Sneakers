@@ -9,8 +9,27 @@ function Home({ items,
   searchValue,
   increase,
   setIncrease,
-  cartItems
+  cartItems,
+  isLoading
 }) {
+
+  const renderItems = () => {
+    const filtredItems = items.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()))
+    return (isLoading ? [...Array(10)] : filtredItems).map((item, i) => {
+      return (
+        <Card
+          onFavorite={(item) => onAddToFavorites(item)}
+          onPlus={(obj) => onAddToCart(obj)}
+          key={i}
+          increase={increase}
+          setIncrease={setIncrease}
+          added={cartItems.some((obj) => Number(obj.id) === Number(item.id))}
+          loading={isLoading}
+          {...item}
+        />
+      )
+    })
+  };
 
   return (
     <div className="content p-40">
@@ -29,21 +48,7 @@ function Home({ items,
       </div>
 
       <div className="d-flex flex-wrap">
-        {items
-          .filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()))
-          .map((item, i) => {
-            return (
-              <Card
-                onFavorite={(item) => onAddToFavorites(item)}
-                onPlus={(obj) => onAddToCart(obj)}
-                key={i}
-                increase={increase}
-                setIncrease={setIncrease}
-                added={cartItems.some((obj) => Number(obj.id) === Number(item.id))}
-                {...item}
-              />
-            )
-          })}
+        {renderItems()}
       </div>
     </div>
   )
