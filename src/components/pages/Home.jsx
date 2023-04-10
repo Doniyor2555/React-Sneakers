@@ -1,34 +1,42 @@
+import { useContext } from 'react';
+
+import AppContext from '../context';
 import Card from "../card/Card";
 
-
-function Home({ items,
+function Home({
+  items,
+  cartItems,
   setSearchValue,
+  searchValue,
   onSearchInput,
   onAddToFavorites,
   onAddToCart,
-  searchValue,
   increase,
   setIncrease,
-  cartItems,
-  isLoading
+  isLoading,
 }) {
 
+  const { isItemAdded, } = useContext(AppContext);
+
   const renderItems = () => {
-    const filtredItems = items.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()))
-    return (isLoading ? [...Array(10)] : filtredItems).map((item, i) => {
-      return (
-        <Card
-          onFavorite={(item) => onAddToFavorites(item)}
-          onPlus={(obj) => onAddToCart(obj)}
-          key={i}
-          increase={increase}
-          setIncrease={setIncrease}
-          added={cartItems.some((obj) => Number(obj.id) === Number(item.id))}
-          loading={isLoading}
-          {...item}
-        />
-      )
-    })
+    const filtredItems = items.filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()));
+    return (
+
+      items
+        .filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
+        .map((item, i) => (
+          <Card
+            onFavorite={(item) => onAddToFavorites(item)}
+            onPlus={(obj) => onAddToCart(obj)}
+            key={i}
+            increase={increase}
+            setIncrease={setIncrease}
+            added={cartItems.some((obj) => Number(obj.id) === Number(item.id))}
+            loading={isLoading}
+            {...item}
+          />
+        ))
+    )
   };
 
   return (
@@ -49,6 +57,7 @@ function Home({ items,
 
       <div className="d-flex flex-wrap">
         {renderItems()}
+
       </div>
     </div>
   )

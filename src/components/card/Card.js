@@ -2,6 +2,8 @@ import { useState } from 'react';
 
 import React from 'react';
 import ContentLoader from 'react-content-loader';
+import { useContext } from 'react';
+
 
 import './card.scss';
 

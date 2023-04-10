@@ -7,7 +7,7 @@ function Drawer({ onClose, onRemoveItem, items = [] }) {
 
 
         {
-          items.length > 0 ? <div className="items" >
+          items.length > 0 ? <div className="items">
           <div>
             
           </div>

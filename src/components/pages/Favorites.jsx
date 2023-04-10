@@ -1,6 +1,12 @@
 import React from 'react'
+import { useContext } from 'react'
 
-function Favorites({ removeItemFromFavorites, increase, setIncrease, favorites = [] }) {
+import AppContext from '../context';
+
+function Favorites({ removeItemFromFavorites,  favorites = [] }) {
+
+  const {increase, setIncrease} = useContext(AppContext);
+
 
   const dicreaseFavorite = () => {
     setIncrease(increase => increase - 1)
@@ -34,4 +40,4 @@ function Favorites({ removeItemFromFavorites, increase, setIncrease, favorites =
   )
 }
 
-export default Favorites
+export default Favorites;
