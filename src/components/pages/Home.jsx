@@ -1,7 +1,8 @@
-import { useContext } from 'react';
-
+import { useState, createContext, useContext } from 'react';
 import AppContext from '../context';
 import Card from "../card/Card";
+import Skeleton from '../skeleton/Skeleton';
+
 
 function Home({
   items,
@@ -20,22 +21,23 @@ function Home({
 
   const renderItems = () => {
     const filtredItems = items.filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()));
+    // return (isLoading ? [...Array(8)] : filtredItems).map((item, i) => {
     return (
-
-      items
-        .filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
-        .map((item, i) => (
-          <Card
-            onFavorite={(item) => onAddToFavorites(item)}
-            onPlus={(obj) => onAddToCart(obj)}
-            key={i}
-            increase={increase}
-            setIncrease={setIncrease}
-            added={cartItems.some((obj) => Number(obj.id) === Number(item.id))}
-            loading={isLoading}
-            {...item}
-          />
-        ))
+      isLoading ? <Loading isLoading={isLoading} /> :
+        items
+          .filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
+          .map((item, i) => (
+            <Card
+              onFavorite={(item) => onAddToFavorites(item)}
+              onPlus={(obj) => onAddToCart(obj)}
+              key={i}
+              increase={increase}
+              setIncrease={setIncrease}
+              added={cartItems.some((obj) => Number(obj.id) === Number(item.id))}
+              loading={isLoading}
+              {...item}
+            />
+          ))
     )
   };
 
@@ -61,6 +63,10 @@ function Home({
       </div>
     </div>
   )
+}
+
+const Loading = ({ isLoading }) => {
+  return (isLoading ? <Skeleton/> : null)
 }
 
 export default Home;

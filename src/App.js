@@ -20,10 +20,12 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [increase, setIncrease] = useState(0);
 
+  
   useEffect(() => {
     async function fetchData() {
-      const itemsResponse = await axios.get('https://642c0e2c208dfe254726b4cb.mockapi.io/items');
+      setIsLoading(true);
       const cartResponse = await axios.get('https://642c0e2c208dfe254726b4cb.mockapi.io/cart');
+      const itemsResponse = await axios.get('https://642c0e2c208dfe254726b4cb.mockapi.io/items');
 
       setIsLoading(false);
 
