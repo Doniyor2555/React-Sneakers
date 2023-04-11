@@ -1,4 +1,4 @@
-import { useState, createContext, useContext } from 'react';
+import { useContext } from 'react';
 import AppContext from '../context';
 import Card from "../card/Card";
 import Skeleton from '../skeleton/Skeleton';
@@ -6,7 +6,6 @@ import Skeleton from '../skeleton/Skeleton';
 
 function Home({
   items,
-  cartItems,
   setSearchValue,
   searchValue,
   onSearchInput,
@@ -17,11 +16,8 @@ function Home({
   isLoading,
 }) {
 
-  const { isItemAdded, } = useContext(AppContext);
-
   const renderItems = () => {
     const filtredItems = items.filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()));
-    // return (isLoading ? [...Array(8)] : filtredItems).map((item, i) => {
     return (
       isLoading ? <Loading isLoading={isLoading} /> :
         items
@@ -33,7 +29,6 @@ function Home({
               key={i}
               increase={increase}
               setIncrease={setIncrease}
-              added={cartItems.some((obj) => Number(obj.id) === Number(item.id))}
               loading={isLoading}
               {...item}
             />

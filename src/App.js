@@ -20,7 +20,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [increase, setIncrease] = useState(0);
 
-  
+
   useEffect(() => {
     async function fetchData() {
       setIsLoading(true);
@@ -71,13 +71,14 @@ function App() {
   };
 
   const isItemAdded = (id) => {
-    console.log(id)
     return cartItems.some((obj) => Number(obj.id) === Number(id));
   };
 
 
   return (
-    <AppContext.Provider value={{ items, cartItems, favorites, increase, setIncrease, isItemAdded }}>
+    <AppContext.Provider value={{ /* cardItems */  items, cartItems, isItemAdded,
+                                  /* Favorites */ favorites, increase, setIncrease, removeItemFromFavorites
+    }}>
       <div className="wrapper clear">
         {
           isCartOpened
@@ -103,11 +104,7 @@ function App() {
               setIncrease={setIncrease}
               isLoading={isLoading}
             />} />
-          <Route path="/favorites" element={<Favorites
-            favorites={favorites}
-            removeItemFromFavorites={removeItemFromFavorites}
-            increase={increase}
-            setIncrease={setIncrease} />} />
+          <Route path="/favorites" element={ <Favorites/> } />
         </Routes>
       </div>
     </AppContext.Provider>

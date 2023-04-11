@@ -3,9 +3,9 @@ import { useContext } from 'react'
 
 import AppContext from '../context';
 
-function Favorites({ removeItemFromFavorites,  favorites = [] }) {
+function Favorites() {
 
-  const {increase, setIncrease} = useContext(AppContext);
+  const {setIncrease, favorites = [], removeItemFromFavorites} = useContext(AppContext);
 
 
   const dicreaseFavorite = () => {
