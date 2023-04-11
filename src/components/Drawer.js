@@ -1,4 +1,22 @@
+import React from 'react';
+import { useState } from "react";
+
+import Info from "./Info";
+import AppContext from "./context";
+
+
 function Drawer({ onClose, onRemoveItem, items = [] }) {
+
+  const { setCartItems } = React.useContext(AppContext)
+
+  const [isOrderComplete, setIsOrderComplete] = useState(false);
+
+  const onClickOrder = () => {
+    setIsOrderComplete(true);
+    setCartItems([]);
+  };
+
+
   return (
     <div className="overlay">
       <div className="drawer">
@@ -7,49 +25,52 @@ function Drawer({ onClose, onRemoveItem, items = [] }) {
 
 
         {
-          items.length > 0 ? <div className="items">
-          <div>
-            
-          </div>
-            {
-              items.map((item) => (
-                <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }} >
-                  <div  key={item.id} className="cartItem d-flex align-center mb-20">
-                    <div style={{ backgroundImage: `url(${item.imageUrl})` }} className="cartItemImg"></div>
-                    <div className="mr-20 flex">
-                      <p className="mb-5">{item.title}</p>
-                      <b>{item.price} руб.</b>
-                    </div>
-                    <img onClick={() => onRemoveItem(item.id)} className="removeBtn" src="/img/btn-remove.svg" alt="Remove" />
-                  </div>
+          items.length > 0 ?
+            <div className='d-flex flex-column flex'>
+                <div className='items'>
+                  {
+                    items.map((item) => (
+                      <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }} >
+                        <div key={item.id} className="cartItem d-flex align-center mb-20">
+                          <div style={{ backgroundImage: `url(${item.imageUrl})` }} className="cartItemImg"></div>
+                          <div className="mr-20 flex">
+                            <p className="mb-5">{item.title}</p>
+                            <b>{item.price} руб.</b>
+                          </div>
+                          <img onClick={() => onRemoveItem(item.id)} className="removeBtn" src="/img/btn-remove.svg" alt="Remove" />
+                        </div>
+                      </div>
+
+
+
+                    ))
+                  }
                 </div>
 
-              ))
-            }
-          </div>
-            : <div className="cartEmpty d-flex">
-              <img width={150} height={150} src="/img/empty-cart.jpg" alt="empty-cart" />
-              <span>Корзина пустая</span>
-              <p>Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.</p>
-              <button onClick={onClose} className="greenButton"><img src="/img/arrow.svg" alt="Arrow" /> Вернуться назад</button>
+                <div className="cartTotalBlock">
+                  <ul>
+                    <li>
+                      <span>Итого: </span>
+                      <div></div>
+                      <b>21 498 руб. </b>
+                    </li>
+                    <li>
+                      <span>Налог 5%: </span>
+                      <div></div>
+                      <b>1074 руб. </b>
+                    </li>
+                  </ul>
+                  <button className="greenButton" onClick={onClickOrder}>
+                    Оформить заказ
+                    <img src="/img/arrow.svg" alt="Arrow" />
+                  </button>
+                </div>
             </div>
+            : <Info 
+            title={isOrderComplete ? <div style={{marginTop: '30px', color: "#87C20A", fontSize: '22px', marginBottom: '9px'}}>Заказ оформлен!</div> : 'Корзина пустая'} 
+            description={isOrderComplete ? <div style={{opacity: '0.5'}}>Ваш заказ #18 скоро будет передан курьерской доставке</div> : 'Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.' }
+            image={isOrderComplete ? '/img/complete-order.jpg' :'/img/empty-cart.jpg'} />
         }
-
-        <div className="cartTotalBlock">
-          <ul>
-            <li>
-              <span>Итого: </span>
-              <div></div>
-              <b>21 498 руб. </b>
-            </li>
-            <li>
-              <span>Налог 5%: </span>
-              <div></div>
-              <b>1074 руб. </b>
-            </li>
-          </ul>
-          <button className="greenButton">Оформить заказ <img src="/img/arrow.svg" alt="Arrow" /></button>
-        </div>
 
       </div>
     </div>

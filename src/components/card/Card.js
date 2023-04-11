@@ -16,7 +16,6 @@ function Card({
   onPlus,
   setIncrease,
   favorited = false,
-  added = false,
   loading = false
 }) {
 

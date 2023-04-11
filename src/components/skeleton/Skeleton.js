@@ -124,8 +124,6 @@ function Skeleton() {
           <rect x="124" y="230" rx="10" ry="10" width="32" height="32" />
         </ContentLoader>
       </div>
-
-
     </>
   )
 }

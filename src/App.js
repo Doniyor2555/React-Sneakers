@@ -73,11 +73,11 @@ function App() {
   const isItemAdded = (id) => {
     return cartItems.some((obj) => Number(obj.id) === Number(id));
   };
-
-
+  
   return (
-    <AppContext.Provider value={{ /* cardItems */  items, cartItems, isItemAdded,
-                                  /* Favorites */ favorites, increase, setIncrease, removeItemFromFavorites
+    <AppContext.Provider value={{ /* cardItems */  items, cartItems, isItemAdded, setCartItems,
+                                  /* Favorites */ favorites, increase, setIncrease, removeItemFromFavorites,
+                                  /* Cart  */      setCartOpened
     }}>
       <div className="wrapper clear">
         {
