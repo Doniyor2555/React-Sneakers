@@ -2,16 +2,13 @@ import React from 'react';
 import { useState } from "react";
 
 import Info from "./Info";
-import AppContext from "./context";
-
+import { useCart } from './hooks/useCart';
 
 function Drawer({ onClose, onRemoveItem, items = [] }) {
 
-  const { cartItems, setCartItems } = React.useContext(AppContext);
+  const { cartItems, setCartItems, totalPrice } = useCart();       
 
   const [isOrderComplete, setIsOrderComplete] = useState(false);
-
-  const totalPrice = cartItems.reduce((sum, current) => current.price + sum, 0);
 
   const onClickOrder = () => {
     setIsOrderComplete(true);
@@ -69,7 +66,7 @@ function Drawer({ onClose, onRemoveItem, items = [] }) {
                 </div>
             </div>
             : <Info 
-            title={isOrderComplete ? <div style={{marginTop: '30px', color: "#87C20A", fontSize: '22px', marginBottom: '9px'}}>Заказ оформлен!</div> : 'Корзина пустая'} 
+            title={isOrderComplete ? <div style={{marginTop: '30px', color: "#87C20A", fontSize: '22px', marginBottom: '9px'}}>Заказ оформлен!</div> : 'Корзина пустая'}
             description={isOrderComplete ? <div style={{opacity: '0.5'}}>Ваш заказ #18 скоро будет передан курьерской доставке</div> : 'Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.' }
             image={isOrderComplete ? '/img/complete-order.jpg' :'/img/empty-cart.jpg'} />
         }
