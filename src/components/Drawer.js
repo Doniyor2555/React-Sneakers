@@ -7,9 +7,11 @@ import AppContext from "./context";
 
 function Drawer({ onClose, onRemoveItem, items = [] }) {
 
-  const { setCartItems } = React.useContext(AppContext)
+  const { cartItems, setCartItems } = React.useContext(AppContext);
 
   const [isOrderComplete, setIsOrderComplete] = useState(false);
+
+  const totalPrice = cartItems.reduce((sum, current) => current.price + sum, 0);
 
   const onClickOrder = () => {
     setIsOrderComplete(true);
@@ -52,12 +54,12 @@ function Drawer({ onClose, onRemoveItem, items = [] }) {
                     <li>
                       <span>Итого: </span>
                       <div></div>
-                      <b>21 498 руб. </b>
+                      <b>{totalPrice} руб. </b>
                     </li>
                     <li>
                       <span>Налог 5%: </span>
                       <div></div>
-                      <b>1074 руб. </b>
+                      <b>{totalPrice / 100 * 5} руб. </b>
                     </li>
                   </ul>
                   <button className="greenButton" onClick={onClickOrder}>
